@@ -81,11 +81,12 @@ module.exports = {
   context: path.resolve(__dirname, "src"),
   mode: "development",
   entry: {
-    main: ["@babel/polyfill", "./index.tsx"],
+    main: "./index.tsx",
   },
   output: {
     filename: filename("js"),
     path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
   },
   resolve: {
     extensions: [".js", ".json", ".png", ".tsx", ".ts", ".jsx"],
@@ -94,6 +95,7 @@ module.exports = {
   devServer: {
     port: 4200,
     hot: isDev,
+    historyApiFallback: true,
   },
   devtool: isDev ? "source-map" : "",
   plugins: plugins(),
