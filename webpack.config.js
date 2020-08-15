@@ -63,6 +63,10 @@ const plugins = () => {
           from: path.resolve(__dirname, "src/media"),
           to: path.resolve(__dirname, "dist/media"),
         },
+        {
+          from: path.resolve(__dirname, "src/herokuStart.js"),
+          to: path.resolve(__dirname, "dist"),
+        },
       ],
     }),
     new MiniCssExtractPlugin({
