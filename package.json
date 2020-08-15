@@ -4,7 +4,7 @@
   "description": "pet project 1",
   "private": true,
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "build": "cross-env NODE_ENV=production webpack --mode production && cd dist && node herokuStart",
     "watch": "cross-env NODE_ENV=development webpack --mode development --watch",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --open",
     "start": "cross-env NODE_ENV=development webpack --mode development",
