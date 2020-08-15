@@ -2,13 +2,13 @@ import "../../index.css";
 import "../../media/fonts/fonts.css";
 import "./App.scss";
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route } from "react-router-dom";
 import { Login } from "../../pages/Login/Login";
 import { Home } from "../../pages/Home/Home";
 
 export const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
         <Route exact path='/'>
           <Home />
@@ -17,6 +17,6 @@ export const App: React.FC = () => {
           <Login />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
