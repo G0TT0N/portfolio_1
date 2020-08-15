@@ -4,13 +4,13 @@
   "description": "pet project 1",
   "private": true,
   "scripts": {
-    "dev-build": "cross-env NODE_ENV=development webpack --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "watch": "cross-env NODE_ENV=development webpack --mode development --watch",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --open",
-    "start": "cd dist && node herokuStart",
+    "start": "cross-env NODE_ENV=development webpack --mode development",
     "stats": "webpack --json > stats.json && webpack-bundle-analyzer stats.json"
   },
+  "heroku-postbuild": "cd dist && node herokuStart",
   "browserslist": "> 0.25%, not dead",
   "license": "ISC",
   "devDependencies": {
