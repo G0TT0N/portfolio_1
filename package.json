@@ -11,6 +11,10 @@
     "stats": "webpack --json > stats.json && webpack-bundle-analyzer stats.json"
   },
   "heroku-postbuild": "cd dist && node herokuStart",
+  "engines": {
+    "node": "12.16.3",
+    "npm": "6.14.6"
+  },
   "browserslist": "> 0.25%, not dead",
   "license": "ISC",
   "devDependencies": {
