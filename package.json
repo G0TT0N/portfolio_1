@@ -10,8 +10,7 @@
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open",
     "stats": "webpack --json > stats.json && webpack-bundle-analyzer stats.json",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "browserslist": "> 0.25%, not dead",
   "license": "ISC",
@@ -44,6 +43,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
+    "axios": "^0.19.2",
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
