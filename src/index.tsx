@@ -1,13 +1,18 @@
+import "antd/dist/antd.min.css";
+import "./media/fonts/fonts.css";
 import React from "react";
 import {render} from "react-dom";
 import {App} from "./components/App/App";
 import axios from "axios";
+import {rootReducer} from "./redux/reducers/rootReducer";
+import {createStore, compose, applyMiddleware} from "redux";
+import thunk from "redux-thunk";
+import {Provider} from "react-redux";
 
 axios.defaults.baseURL =
   process.env.NODE_ENV === "development"
-    ? "http://localhost:4200"
+    ? "http://localhost:4050"
     : "https://portfolio-1-server.herokuapp.com";
-// axios.defaults.baseURL = "https://portfolio-1-server.herokuapp.com";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.post["Access-Control-Allow-Origin"] =
   process.env.NODE_ENV === "development"
@@ -18,4 +23,22 @@ axios.defaults.headers.post["Access-Control-Allow-Methods"] =
 axios.defaults.headers.post["Access-Control-Allow-Headers"] =
   "Origin, X-Auth-Token,Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With";
 
-render(<App />, document.getElementById("root"));
+const composeEnhancers =
+  typeof window === "object" &&
+  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    : compose;
+
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk)),
+);
+
+render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root"),
+);
