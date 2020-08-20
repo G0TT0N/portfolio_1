@@ -1,30 +1,31 @@
 import "./Header.scss";
 import React from "react";
-import {EnvironmentOutlined} from "@ant-design/icons";
-import {useDispatch, useSelector, RootStateOrAny} from "react-redux";
-import {connect} from "react-redux";
-import {changeTown} from "../../redux/actions/appActions";
-
-interface RootState {
-  app: {
-    town: string;
-  };
-}
+import {EnvironmentOutlined, UserOutlined} from "@ant-design/icons";
+import {useSelector} from "react-redux";
+import {appReduxState} from "../../interfaces/appReduxState";
+import {NavLink} from "react-router-dom";
 
 export const Header: React.FC = () => {
-  const dispatch = useDispatch();
-
-  const town = useSelector((state: RootState) => state.app.town);
-
+  const town = useSelector((state: appReduxState) => state.app.town);
   return (
-    <div>
-      <div className='header__top'>
-        <div className='header__top__town'>
-          <EnvironmentOutlined />
-          <p>{town}</p>
-          <button onClick={() => dispatch(changeTown("1123"))}>123</button>
-        </div>
+    <div className='header__top'>
+      <div className='header__top__town'>
+        <EnvironmentOutlined />
+        <p>{town}</p>
       </div>
+      <nav className='header__top__menu'>
+        <ul>
+          <li>
+            <NavLink to={"/delivery"}>Доставка и оплата</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/contacts"}>Магазины</NavLink>
+          </li>
+          <li>
+            <UserOutlined /> <span>Войти</span>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };
