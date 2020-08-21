@@ -5,5 +5,5 @@ import axios from "axios";
 export const Home: React.FC = () => {
   const history = useHistory();
 
-  return <div className='app__wrapper'>HOME</div>;
+  return <div className='app__wrapper'>HOME COMPONENT</div>;
 };

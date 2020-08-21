@@ -1,2 +1,37 @@
+:root {
+  --main-red: hsla(357, 81%, 50%, 1);
+  --dark-main-red: hsla(357, 83%, 37%, 1);
+}
+
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  color: inherit;
+  transition: 0.3s;
+
+  &:hover {
+    color: inherit;
+  }
+}
+
 .app__wrapper {
+  padding: 0 200px;
+}
+
+.arrow-icon {
+  font-size: 10px;
+}
+
+@media screen and (max-width: 1080px) {
+  .app__wrapper {
+    padding: 0 20px;
+  }
 }

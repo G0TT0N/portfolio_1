@@ -1,4 +1,41 @@
-.header__top {
+.header_top {
   display: flex;
-  padding: 5px 10px;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.header_top__town {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  p {
+    margin: 0 5px;
+  }
+}
+
+.header_top__menu {
+  display: flex;
+
+  .header_top__menu__item {
+    margin-left: 20px;
+    color: VAR(--main-red);
+    cursor: pointer;
+
+    &:hover {
+      color: VAR(--dark-main-red);
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header_top {
+    flex-direction: column-reverse;
+  }
+
+  .header_top__town {
+    margin-top: 20px;
+  }
 }
