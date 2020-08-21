@@ -12,6 +12,7 @@ import {
   UserOutlined,
   CaretDownOutlined,
 } from "@ant-design/icons";
+import {LoginModal} from "../LoginModal/LoginModal";
 
 export const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,17 +21,21 @@ export const Header: React.FC = () => {
   const [townList, setTownList] = useState([]);
 
   useEffect(() => {
-    axios.get("/townApi/getTownList").then((res) => {
-      setTownList(res.data.map((townData: {name: string}) => townData.name));
-    });
-
     const savedTown: string | null = localStorage.getItem("town");
 
-    if (!savedTown) {
-      dispatch(changeTown(townList[0]));
-    } else {
-      dispatch(changeTown(savedTown));
-    }
+    axios.get("/townApi/getTownList").then((res) => {
+      const townList = res.data.map(
+        (townData: {name: string}) => townData.name,
+      );
+
+      if (!savedTown) {
+        dispatch(changeTown(townList[0]));
+      } else {
+        dispatch(changeTown(savedTown));
+      }
+
+      setTownList(townList);
+    });
   }, []);
 
   const setActiveTown = (townName: string) => {
@@ -47,6 +52,8 @@ export const Header: React.FC = () => {
       ))}
     </Menu>
   );
+
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className='app__wrapper'>
@@ -65,9 +72,16 @@ export const Header: React.FC = () => {
           <li className='header_top__menu__item'>
             <NavLink to={"/contacts"}>Магазины</NavLink>
           </li>
-          <li className='header_top__menu__item'>
+          <li
+            className='header_top__menu__item'
+            onClick={() => setShowModal(true)}
+          >
             <a>
               <UserOutlined /> <span>Войти</span>
+              <LoginModal
+                closeModal={() => setShowModal(false)}
+                visible={showModal}
+              />
             </a>
           </li>
         </ul>
