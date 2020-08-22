@@ -2,21 +2,32 @@ import "./LoginModal.scss";
 import React from "react";
 import {Modal, Form, Input, Button} from "antd";
 import axios from "axios";
+import {sendHttpReq} from "../../utils/sendHttpReq";
 
-interface LoginModalProps {
+type LoginModalProps = {
   visible: boolean;
   closeModal(): void;
-}
+};
+
+type loginResponse = {
+  token: string;
+  userId: string;
+};
 
 export const LoginModal: React.FC<LoginModalProps> = ({
   visible,
   closeModal,
 }) => {
-  const loginHandle = (userData: {email?: string; password?: string}) => {
-    axios.post("/authApi/login", {
+  const loginHandle = async (userData: {email?: string; password?: string}) => {
+    const user: loginResponse = await sendHttpReq("post", "/authApi/login", {
       email: userData.email,
       password: userData.password,
     });
+
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({token: user.token, userId: user.userId}),
+    );
   };
 
   return (
