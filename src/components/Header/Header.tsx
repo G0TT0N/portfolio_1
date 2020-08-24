@@ -2,7 +2,6 @@ import "./Header.scss";
 import React, {useState, useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {changeTown} from "../../redux/actions/appActions";
-import axios from "axios";
 import {useSelector} from "react-redux";
 import {appReduxState} from "../../interfaces/appReduxState";
 import {NavLink} from "react-router-dom";
@@ -13,17 +12,18 @@ import {
   CaretDownOutlined,
 } from "@ant-design/icons";
 import {LoginModal} from "../LoginModal/LoginModal";
+import {sendHttpReq} from "../../utils/sendHttpReq";
 
 export const Header: React.FC = () => {
   const dispatch = useDispatch();
 
   const town = useSelector((state: appReduxState) => state.app.town);
-  const [townList, setTownList] = useState([]);
+  const [townList, setTownList] = useState<string[]>([]);
 
   useEffect(() => {
     const savedTown: string | null = localStorage.getItem("town");
 
-    axios.get("/townApi/getTownList").then((res) => {
+    sendHttpReq("get", "/townApi/getTownList").then((res) => {
       const townList = res.data.map(
         (townData: {name: string}) => townData.name,
       );
@@ -53,7 +53,7 @@ export const Header: React.FC = () => {
     </Menu>
   );
 
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
     <div className='app__wrapper'>
@@ -67,17 +67,17 @@ export const Header: React.FC = () => {
         </div>
         <ul className='header_top__menu'>
           <li className='header_top__menu__item'>
-            <NavLink to={"/delivery"}>Доставка и оплата</NavLink>
+            <NavLink to={"/delivery"}>Delivery and payment </NavLink>
           </li>
           <li className='header_top__menu__item'>
-            <NavLink to={"/contacts"}>Магазины</NavLink>
+            <NavLink to={"/contacts"}>Shops</NavLink>
           </li>
           <li
             className='header_top__menu__item'
             onClick={() => setShowModal(true)}
           >
             <a>
-              <UserOutlined /> <span>Войти</span>
+              <UserOutlined /> <span>Sign In</span>
               <LoginModal
                 closeModal={() => setShowModal(false)}
                 visible={showModal}

@@ -21,11 +21,11 @@
 
   .header_top__menu__item {
     margin-left: 20px;
-    color: VAR(--main-red);
+    color: var(--main-red);
     cursor: pointer;
 
     &:hover {
-      color: VAR(--dark-main-red);
+      text-shadow: 0px 0px 0px var(--main-red_dark);
     }
   }
 }
