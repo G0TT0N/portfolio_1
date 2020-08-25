@@ -1,23 +1,23 @@
 import "./Header.scss";
 import React, {useState, useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {changeTown} from "../../redux/actions/appActions";
+import {changeTown} from "Redux/actions/appActions";
 import {useSelector} from "react-redux";
-import {appReduxState} from "../../interfaces/appReduxState";
+import {IAppState} from "Ts/interfaces/reduxInterfaces/appState";
 import {NavLink} from "react-router-dom";
 import {Menu, Dropdown} from "antd";
+import {AuthModal} from "Components/AuthModal/AuthModal";
+import {sendHttpReq} from "Utils/sendHttpReq";
 import {
   EnvironmentOutlined,
   UserOutlined,
   CaretDownOutlined,
 } from "@ant-design/icons";
-import {LoginModal} from "../LoginModal/LoginModal";
-import {sendHttpReq} from "../../utils/sendHttpReq";
 
 export const Header: React.FC = () => {
   const dispatch = useDispatch();
 
-  const town = useSelector((state: appReduxState) => state.app.town);
+  const town = useSelector((state: IAppState) => state.app.town);
   const [townList, setTownList] = useState<string[]>([]);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export const Header: React.FC = () => {
           >
             <a>
               <UserOutlined /> <span>Sign In</span>
-              <LoginModal
+              <AuthModal
                 closeModal={() => setShowModal(false)}
                 visible={showModal}
               />

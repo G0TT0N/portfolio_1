@@ -1,11 +1,38 @@
 import "./App.scss";
 import React from "react";
 import {HashRouter, Switch, Route} from "react-router-dom";
-import {Login} from "../../pages/Login/Login";
-import {Home} from "../../pages/Home/Home";
-import {Header} from "../Header/Header";
+import {Login} from "Pages/Login/Login";
+import {Home} from "Pages/Home/Home";
+import {Header} from "Components/Header/Header";
+import {message} from "antd";
+import {useDispatch} from "react-redux";
+import {sendHttpReq} from "Utils/sendHttpReq";
+import {saveCurrentUser} from "Redux/actions/appActions";
+import {IHttpSuccessResponse} from "Ts/interfaces/appInterfaces/http";
+
+message.config({
+  duration: 2,
+  maxCount: 3,
+  rtl: true,
+});
 
 export const App: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    sendHttpReq("post", "/authApi/checkToken", {prevToken: token}).then(
+      (res: IHttpSuccessResponse) => {
+        if (res.data.userId) {
+          dispatch(saveCurrentUser(res.data.userId));
+        } else {
+          localStorage.removeItem("token");
+        }
+      },
+    );
+  }
+
   return (
     <HashRouter>
       <Header />

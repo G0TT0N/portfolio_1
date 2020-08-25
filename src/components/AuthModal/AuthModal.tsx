@@ -1,55 +1,52 @@
-import "./LoginModal.scss";
+import "./AuthModal.scss";
 import React, {useState} from "react";
 import {Modal, Form, Input, Button} from "antd";
-import {sendHttpReq} from "../../utils/sendHttpReq";
+import {sendHttpReq} from "Utils/sendHttpReq";
+import {useDispatch} from "react-redux";
+import {saveCurrentUser} from "Redux/actions/appActions";
+import {
+  IHttpSuccessResponse,
+  IRegisterData,
+  ILoginData,
+} from "Ts/interfaces/appInterfaces/http";
 
-type LoginModalProps = {
+type AuthModalProps = {
   visible: boolean;
   closeModal(): void;
 };
 
-type loginDataType = {
-  email?: string;
-  password?: string;
-};
+export const AuthModal: React.FC<AuthModalProps> = ({visible, closeModal}) => {
+  const dispatch = useDispatch();
 
-type loginResponseType = {
-  token: string;
-  userId: string;
-};
-
-type registerDataType = {
-  name?: string;
-  email?: string;
-  password?: string;
-  confirm?: string;
-  phone?: string;
-};
-
-export const LoginModal: React.FC<LoginModalProps> = ({
-  visible,
-  closeModal,
-}) => {
   const [activeTab, setActiveTab] = useState<string>("loginTab");
 
-  const loginHandler = async (loginData: loginDataType) => {
-    const user: loginResponseType = await sendHttpReq(
-      "post",
-      "/authApi/login",
-      {
-        email: loginData.email,
-        password: loginData.password,
-      },
-    );
-
-    localStorage.setItem(
-      "userData",
-      JSON.stringify({token: user.token, userId: user.userId}),
-    );
+  const registerHandler = (registerData: IRegisterData): void => {
+    sendHttpReq("post", "/userApi/createUser", {
+      email: registerData.email,
+      password: registerData.password,
+      name: registerData.name,
+      phone: "+7" + registerData.phone,
+    }).then(() => {
+      loginHandler({
+        email: registerData.email,
+        password: registerData.password,
+      });
+    });
   };
 
-  const registerHandler = async (registerData: registerDataType) => {
-    console.log("000000000000000000", registerData);
+  const loginHandler = (loginData: ILoginData): void => {
+    sendHttpReq("post", "/authApi/login", {
+      email: loginData.email,
+      password: loginData.password,
+    }).then((res: IHttpSuccessResponse) => {
+      localStorage.removeItem("token");
+
+      dispatch(saveCurrentUser(res.data.userId));
+
+      localStorage.setItem("token", res.data.token);
+
+      closeModal();
+    });
   };
 
   return (
@@ -176,6 +173,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 required: true,
                 message: "Incorrect phone number",
                 max: 10,
+                min: 10,
               },
             ]}
             className='loginModal__input'

@@ -90,6 +90,14 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".json", ".png", ".tsx", ".ts", ".jsx"],
+    alias: {
+      Ts: path.resolve(__dirname, "src/src_typescript/"),
+      Utils: path.resolve(__dirname, "src/utils/"),
+      Redux: path.resolve(__dirname, "src/redux/"),
+      Pages: path.resolve(__dirname, "src/pages/"),
+      Media: path.resolve(__dirname, "src/media/"),
+      Components: path.resolve(__dirname, "src/components/"),
+    },
   },
   optimization: optimization(),
   devServer: {

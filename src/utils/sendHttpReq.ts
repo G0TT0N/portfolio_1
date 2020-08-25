@@ -1,18 +1,20 @@
 import axios from "axios";
 import {message} from "antd";
-
-type httpData = {
-  [name: string]: any;
-};
+import {
+  IHttpSuccessResponse,
+  IHttpErrorResponse,
+} from "../src_typescript/interfaces/appInterfaces/http";
 
 export const sendHttpReq = async (
   method: string,
   url: string,
-  data?: httpData,
+  data?: {
+    [name: string]: any;
+  },
 ) => {
   return await axios[method](url, data)
-    .then((res) => res)
-    .catch((err) => {
+    .then((res: IHttpSuccessResponse) => res)
+    .catch((err: IHttpErrorResponse) => {
       message.error(err.response.data);
       return err.response;
     });
