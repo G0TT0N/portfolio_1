@@ -54,6 +54,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({visible, closeModal}) => {
       className='loginModal__form'
       visible={visible}
       footer={null}
+      destroyOnClose={true}
       onCancel={(e) => {
         e.stopPropagation();
         closeModal();

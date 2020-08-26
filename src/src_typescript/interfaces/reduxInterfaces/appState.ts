@@ -2,8 +2,10 @@ export interface IAppState {
   app: {
     town: string;
     currentUser: {
-      token: string;
-      userId: string;
+      id: string;
+      email: string;
+      name: string;
+      phone: string;
     };
   };
 }

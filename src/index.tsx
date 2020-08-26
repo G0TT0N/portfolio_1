@@ -1,10 +1,10 @@
 import "antd/dist/antd.min.css";
-import "./media/fonts/fonts.css";
+import "Media/fonts/fonts.css";
 import React from "react";
 import {render} from "react-dom";
-import {App} from "./components/App/App";
+import {App} from "Components/App/App";
 import axios from "axios";
-import {rootReducer} from "./redux/reducers/rootReducer";
+import {rootReducer} from "Redux/reducers/rootReducer";
 import {createStore, compose, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
@@ -25,6 +25,7 @@ axios.defaults.headers.post["Access-Control-Allow-Headers"] =
 
 const composeEnhancers =
   typeof window === "object" &&
+  process.env.NODE_ENV === "development" &&
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;

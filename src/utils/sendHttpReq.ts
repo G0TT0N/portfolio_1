@@ -3,7 +3,7 @@ import {message} from "antd";
 import {
   IHttpSuccessResponse,
   IHttpErrorResponse,
-} from "../src_typescript/interfaces/appInterfaces/http";
+} from "Ts/interfaces/appInterfaces/http";
 
 export const sendHttpReq = async (
   method: string,

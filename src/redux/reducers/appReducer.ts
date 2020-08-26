@@ -2,7 +2,7 @@ import {CHANGE_TOWN, SAVE_CURRENT_USER} from "../types/appTypes";
 
 const initialState = {
   town: "",
-  userId: "",
+  currentUser: {},
 };
 
 export const appReducer = (
@@ -13,7 +13,7 @@ export const appReducer = (
     case CHANGE_TOWN:
       return {...state, town: action.payload};
     case SAVE_CURRENT_USER:
-      return {...state, userId: action.payload};
+      return {...state, currentUser: action.payload};
     default:
       return state;
   }

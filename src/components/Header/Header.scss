@@ -1,41 +1,7 @@
-.header_top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  padding: 10px 0;
-}
-
-.header_top__town {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-
-  p {
-    margin: 0 5px;
-  }
-}
-
-.header_top__menu {
-  display: flex;
-
-  .header_top__menu__item {
-    margin-left: 20px;
-    color: var(--main-red);
-    cursor: pointer;
-
-    &:hover {
-      text-shadow: 0px 0px 0px var(--main-red_dark);
-    }
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .header_top {
-    flex-direction: column-reverse;
-  }
-
-  .header_top__town {
-    margin-top: 20px;
-  }
+.header__wrapper {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0%) 0%,
+    rgba(0, 0, 0, 0.11) 100%
+  );
 }
