@@ -1,9 +1,11 @@
 import React from "react";
-import {useHistory} from "react-router";
-import axios from "axios";
+import "./Home.scss";
+import {FilterBlock} from "./FilterBlock/FilterBlock";
 
 export const Home: React.FC = () => {
-  const history = useHistory();
-
-  return <div className='app__wrapper'>HOME COMPONENT</div>;
+  return (
+    <div className='app__wrapper site-drawer-render-in-current-wrapper'>
+      <FilterBlock />
+    </div>
+  );
 };

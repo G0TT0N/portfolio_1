@@ -1,9 +1,9 @@
 import "./HeaderBottom.scss";
 import React from "react";
-import logo from "Media/img/bull_logo.png";
-import {useHistory} from "react-router-dom";
-import {HeartOutlined, ShoppingCartOutlined} from "@ant-design/icons";
 import {Input} from "antd";
+import {useHistory} from "react-router-dom";
+import logo from "Media/img/bull_logo.png";
+import {HeartOutlined, ShoppingCartOutlined} from "@ant-design/icons";
 
 export const HeaderBottom: React.FC = () => {
   const history = useHistory();
@@ -24,6 +24,7 @@ export const HeaderBottom: React.FC = () => {
         onSearch={searchHandler}
         size='large'
         className='header_bottom__search-input'
+        placeholder='Search in the catalog'
       />
       <div className='header_bottom__control-icons'>
         <HeartOutlined />

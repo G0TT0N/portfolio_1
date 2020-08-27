@@ -1,6 +1,7 @@
 :root {
   --main-red: hsla(357, 81%, 50%, 1);
   --main-red_dark: hsla(357, 83%, 37%, 1);
+  --main-red_light: hsla(357, 81%, 50%, 0.6);
 }
 
 p,
@@ -20,6 +21,12 @@ a {
   &:hover {
     color: inherit;
   }
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .app__wrapper {
