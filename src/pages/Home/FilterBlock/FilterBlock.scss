@@ -1,6 +1,38 @@
+.filterBlock__drawer {
+  .ant-drawer-content-wrapper {
+    border-left: 1px solid hsla(0, 0%, 0%, 0.1);
+  }
+}
+
 .filterBlock__item {
   margin-bottom: 20px;
   font-size: 16px;
+}
+
+.filterBlock__item__sort-select {
+  &:hover {
+    .ant-cascader-input {
+      border-color: hsla(0, 0%, 0%, 0.6) !important;
+    }
+  }
+
+  .ant-cascader-picker-label {
+    color: var(--main-red);
+  }
+}
+
+.filterBlock__item__sort-select.ant-cascader-picker:focus {
+  .ant-cascader-input {
+    border-color: hsla(0, 0%, 0%, 0.6) !important;
+    box-shadow: 0 0 3px hsla(0, 0%, 0%, 0.65) !important;
+  }
+}
+
+.filterBlock__item__sort-select.ant-cascader-picker-focused {
+  .ant-cascader-input {
+    border-color: hsla(0, 0%, 0%, 0.6) !important;
+    box-shadow: 0 0 3px hsla(0, 0%, 0%, 0.65) !important;
+  }
 }
 
 .filterBlock__item__category {
@@ -8,7 +40,7 @@
   transition: 0.3s;
 
   &:hover {
-    color: var(--main-red);
+    color: var(--main-red_dark);
   }
 }
 
@@ -17,6 +49,10 @@
   color: var(--main-red);
   border-radius: 3px;
   padding-left: 10px;
+
+  &:hover {
+    background-color: hsla(0, 0%, 0%, 0.1);
+  }
 }
 
 .filterBlock__item__checkbox-group {
@@ -40,19 +76,6 @@
 }
 
 .filterBlock__item__slider {
-  .ant-slider-track {
-    background-color: var(--main-red);
-    opacity: 0.6;
-  }
-
-  .ant-slider-handle {
-    border-color: var(--main-red_light);
-
-    &:focus {
-      box-shadow: 0 0 0 5px hsla(0, 0%, 0%, 0.1);
-    }
-  }
-
   &:hover {
     .ant-slider-track {
       background-color: var(--main-red);
@@ -65,18 +88,35 @@
       border-color: var(--main-red) !important;
     }
   }
-}
 
-.filterBlock__item__price-input.ant-input-number:hover {
-  border-color: hsla(0, 0%, 0%, 0.5);
+  .ant-slider-track {
+    background-color: var(--main-red);
+    opacity: 0.6;
+  }
 
-  .ant-input-number-handler-up-inner,
-  .ant-input-number-handler-down-inner {
-    color: var(--main-red_dark);
+  .ant-slider-handle {
+    border-color: var(--main-red_light);
+
+    &:focus {
+      box-shadow: 0 0 0 5px hsla(0, 0%, 0%, 0.1);
+    }
   }
 }
+.filterBlock__item__price-fields {
+  display: flex;
+  justify-content: space-between;
 
-.filterBlock__item__price-input.ant-input-number-focused {
-  border-color: black;
-  box-shadow: 0 0 2px hsla(0, 0%, 0%, 0.65);
+  .filterBlock__item__price-input.ant-input-number:hover {
+    border-color: hsla(0, 0%, 0%, 0.5);
+
+    .ant-input-number-handler-up-inner,
+    .ant-input-number-handler-down-inner {
+      color: var(--main-red_dark);
+    }
+  }
+
+  .filterBlock__item__price-input.ant-input-number-focused {
+    border-color: black;
+    box-shadow: 0 0 2px hsla(0, 0%, 0%, 0.65);
+  }
 }

@@ -30,7 +30,9 @@ a {
 }
 
 .app__wrapper {
-  padding: 0 200px;
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .arrow-icon {
@@ -45,6 +47,15 @@ a {
   border-top: 1px solid hsla(0, 0, 0, 0.1);
   margin: 0;
 }
+
+/* antd styles ===>*/
+
+// Cascader
+.ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled) {
+  background-color: hsla(0, 0, 0, 0.1);
+}
+
+/* <=== antd styles */
 
 @media screen and (max-width: 1080px) {
   .app__wrapper {

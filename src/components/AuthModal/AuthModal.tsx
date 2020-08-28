@@ -4,11 +4,7 @@ import {Modal, Form, Input, Button} from "antd";
 import {sendHttpReq} from "Utils/sendHttpReq";
 import {useDispatch} from "react-redux";
 import {saveCurrentUser} from "Redux/actions/appActions";
-import {
-  IHttpSuccessResponse,
-  IRegisterData,
-  ILoginData,
-} from "Ts/interfaces/appInterfaces/http";
+import {IHttpSuccessResponse, IRegisterData, ILoginData} from "Ts/interfaces/appInterfaces/http";
 
 type AuthModalProps = {
   visible: boolean;
@@ -41,7 +37,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({visible, closeModal}) => {
     }).then((res: IHttpSuccessResponse) => {
       localStorage.removeItem("token");
 
-      dispatch(saveCurrentUser(res.data.userId));
+      dispatch(saveCurrentUser(res.data.userInfo));
 
       localStorage.setItem("token", res.data.token);
 
@@ -59,8 +55,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({visible, closeModal}) => {
         e.stopPropagation();
         closeModal();
         setTimeout(() => setActiveTab("loginTab"), 1000);
-      }}
-    >
+      }}>
       {activeTab === "loginTab" ? (
         <Form onFinish={loginHandler} size='large'>
           <Form.Item
@@ -76,16 +71,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({visible, closeModal}) => {
                 message: "Please input your E-mail",
               },
             ]}
-            className='loginModal__input'
-          >
+            className='loginModal__input'>
             <Input />
           </Form.Item>
           <Form.Item
             label='Password'
             name='password'
             rules={[{required: true, message: "Please input your password"}]}
-            className='loginModal__input'
-          >
+            className='loginModal__input'>
             <Input.Password />
           </Form.Item>
           <Form.Item className='loginModal__controls'>
@@ -93,10 +86,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({visible, closeModal}) => {
               Sign In
             </Button>
             <span style={{marginLeft: "20px"}}>or</span>
-            <span
-              className='loginModal__controls_signUp'
-              onClick={() => setActiveTab("registerTab")}
-            >
+            <span className='loginModal__controls_signUp' onClick={() => setActiveTab("registerTab")}>
               Sign Up
             </span>
           </Form.Item>
@@ -112,8 +102,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({visible, closeModal}) => {
                 message: "Please input your name",
               },
             ]}
-            className='loginModal__input'
-          >
+            className='loginModal__input'>
             <Input type='text' />
           </Form.Item>
           <Form.Item
@@ -129,16 +118,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({visible, closeModal}) => {
                 message: "Please input your E-mail",
               },
             ]}
-            className='loginModal__input'
-          >
+            className='loginModal__input'>
             <Input />
           </Form.Item>
           <Form.Item
             label='Password'
             name='password'
             rules={[{required: true, message: "Please input your password"}]}
-            className='loginModal__input'
-          >
+            className='loginModal__input'>
             <Input.Password />
           </Form.Item>
           <Form.Item
@@ -156,14 +143,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({visible, closeModal}) => {
                   if (!value || getFieldValue("password") === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(
-                    "The two passwords that you entered do not match",
-                  );
+                  return Promise.reject("The two passwords that you entered do not match");
                 },
               }),
             ]}
-            className='loginModal__input'
-          >
+            className='loginModal__input'>
             <Input.Password />
           </Form.Item>
           <Form.Item
@@ -177,8 +161,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({visible, closeModal}) => {
                 min: 10,
               },
             ]}
-            className='loginModal__input'
-          >
+            className='loginModal__input'>
             <Input addonBefore={"+7"} type='number' />
           </Form.Item>
           <Form.Item className='loginModal__controls'>
@@ -186,10 +169,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({visible, closeModal}) => {
               Register
             </Button>
             <span style={{marginLeft: "20px"}}>or</span>
-            <span
-              className='loginModal__controls_signUp'
-              onClick={() => setActiveTab("loginTab")}
-            >
+            <span className='loginModal__controls_signUp' onClick={() => setActiveTab("loginTab")}>
               Sign In
             </span>
           </Form.Item>

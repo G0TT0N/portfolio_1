@@ -1,10 +1,54 @@
 import "./FilterBlock.scss";
 import React, {useState} from "react";
-import {Slider, InputNumber, Checkbox, Button, Drawer} from "antd";
+import {Slider, InputNumber, Checkbox, Button, Drawer, Select, Cascader} from "antd";
+import {sendHttpReq} from "Utils/sendHttpReq";
+import {useSelector} from "react-redux";
+import {IAppState} from "Ts/interfaces/reduxInterfaces/appState";
+
+const {Option} = Select;
 
 export const FilterBlock: React.FC = () => {
-  // category logic
+  // sort logic
+  const sortOptions = [
+    {
+      value: "rating",
+      label: "Rating",
+    },
+    {
+      value: "price",
+      label: "Price",
+      children: [
+        {
+          value: "asc",
+          label: "Ascending",
+        },
+        {
+          value: "desc",
+          label: "Descending",
+        },
+      ],
+    },
+    {
+      value: "store",
+      label: "Store",
+      children: [
+        {
+          value: "Павлово",
+          label: "Павлово",
+        },
+        {
+          value: "Богородск",
+          label: "Богородск",
+        },
+      ],
+    },
+  ];
 
+  const sortHandler = (value) => {
+    console.log(value);
+  };
+
+  // category logic
   const categoryHandler = (e: React.MouseEvent) => {
     const selectedElements = document.getElementsByClassName("filterBlock__item__category_selected");
 
@@ -49,11 +93,22 @@ export const FilterBlock: React.FC = () => {
         visible={showDrawer}
         getContainer={false}
         style={{position: "absolute"}}
-        mask={false}>
+        mask={false}
+        className='filterBlock__drawer'>
+        <div className='filterBlock__item'>
+          <h2>Sort by</h2>
+          <Cascader
+            options={sortOptions}
+            onChange={sortHandler}
+            defaultValue={["rating"]}
+            expandTrigger={"hover"}
+            className='filterBlock__item__sort-select'
+          />
+        </div>
         <div className='filterBlock__item'>
           <h2>Category</h2>
           <ul id='filterBlock__item__category-list'>
-            <li className='filterBlock__item__category' onClick={categoryHandler}>
+            <li className='filterBlock__item__category filterBlock__item__category_selected' onClick={categoryHandler}>
               Protein
             </li>
             <li className='filterBlock__item__category' onClick={categoryHandler}>
@@ -90,20 +145,22 @@ export const FilterBlock: React.FC = () => {
             onAfterChange={onAfterChange}
             className='filterBlock__item__slider'
           />
-          <InputNumber
-            min={defaultInputValue[0]}
-            max={inputValue[1]}
-            value={inputValue[0]}
-            onChange={(e) => setInputValue([+e!, inputValue[1]])}
-            className='filterBlock__item__price-input'
-          />
-          <InputNumber
-            min={defaultInputValue[0]}
-            max={defaultInputValue[1]}
-            value={inputValue[1]}
-            onChange={(e) => setInputValue([inputValue[0], +e!])}
-            className='filterBlock__item__price-input'
-          />
+          <div className='filterBlock__item__price-fields'>
+            <InputNumber
+              min={defaultInputValue[0]}
+              max={inputValue[1]}
+              value={inputValue[0]}
+              onChange={(e) => setInputValue([+e!, inputValue[1]])}
+              className='filterBlock__item__price-input'
+            />
+            <InputNumber
+              min={defaultInputValue[0]}
+              max={defaultInputValue[1]}
+              value={inputValue[1]}
+              onChange={(e) => setInputValue([inputValue[0], +e!])}
+              className='filterBlock__item__price-input'
+            />
+          </div>
         </div>
         <div className='filterBlock__item'>
           <h2>Country</h2>

@@ -4,7 +4,7 @@ import {FilterBlock} from "./FilterBlock/FilterBlock";
 
 export const Home: React.FC = () => {
   return (
-    <div className='app__wrapper site-drawer-render-in-current-wrapper'>
+    <div className='app__wrapper home__wrapper'>
       <FilterBlock />
     </div>
   );
