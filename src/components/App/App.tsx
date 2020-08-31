@@ -7,6 +7,7 @@ import {Header} from "Components/Header/Header";
 import {message} from "antd";
 import {useDispatch} from "react-redux";
 import {CHECK_AUTH} from "Redux/types/appTypes";
+import {saveTownsInfo} from "Redux/actions/appActions";
 
 message.config({
   duration: 2,
@@ -19,6 +20,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     dispatch({type: CHECK_AUTH});
+    dispatch(saveTownsInfo());
   }, []);
 
   return (

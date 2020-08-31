@@ -1,11 +1,7 @@
 import "./FilterBlock.scss";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Slider, InputNumber, Checkbox, Button, Drawer, Select, Cascader} from "antd";
-import {sendHttpReq} from "Utils/sendHttpReq";
-import {useSelector} from "react-redux";
-import {IAppState} from "Ts/interfaces/reduxInterfaces/appState";
-
-const {Option} = Select;
+import {AppstoreOutlined, BarsOutlined} from "@ant-design/icons";
 
 export const FilterBlock: React.FC = () => {
   // sort logic
@@ -79,22 +75,31 @@ export const FilterBlock: React.FC = () => {
 
   const [showDrawer, setShowDrawer] = useState(true);
 
-  return (
-    <div className='filterBlock__wrapper'>
-      {!showDrawer && (
-        <Button type='primary' onClick={() => setShowDrawer((prev) => !prev)}>
-          Open Filters
-        </Button>
-      )}
-      <Drawer
-        placement='left'
-        closable={true}
-        onClose={() => setShowDrawer(false)}
-        visible={showDrawer}
-        getContainer={false}
-        style={{position: "absolute"}}
-        mask={false}
-        className='filterBlock__drawer'>
+  //  reder content logic
+
+  const [greedRender, setGreedRender] = useState(true);
+
+  const [mobileView, setMobileView] = useState(false);
+
+  useEffect(() => {
+    if (document.documentElement.clientWidth <= 1080) {
+      setMobileView(true);
+    } else {
+      setMobileView(false);
+    }
+
+    window.addEventListener("resize", () => {
+      if (document.documentElement.clientWidth <= 1080) {
+        setMobileView(true);
+      } else {
+        setMobileView(false);
+      }
+    });
+  }, []);
+
+  const renderContent = () => {
+    return (
+      <div className={!mobileView ? "filterBlock_desctop" : ""}>
         <div className='filterBlock__item'>
           <h2>Sort by</h2>
           <Cascader
@@ -170,7 +175,35 @@ export const FilterBlock: React.FC = () => {
             className='filterBlock__item__checkbox-group'
           />
         </div>
-      </Drawer>
+      </div>
+    );
+  };
+
+  return (
+    <div className='filterBlock__wrapper'>
+      <div className='filterBlock__controls'>
+        <Button onClick={() => setShowDrawer(!showDrawer)}>Filters</Button>
+        <Button
+          icon={greedRender ? <AppstoreOutlined /> : <BarsOutlined />}
+          onClick={() => setGreedRender(!greedRender)}
+        />
+      </div>
+
+      {!mobileView ? (
+        renderContent()
+      ) : (
+        <Drawer
+          placement='left'
+          closable={true}
+          onClose={() => setShowDrawer(false)}
+          visible={showDrawer}
+          getContainer={false}
+          style={{position: "absolute", left: !showDrawer ? "-1000px" : ""}}
+          mask={false}
+          className='filterBlock__drawer'>
+          {renderContent()}
+        </Drawer>
+      )}
     </div>
   );
 };

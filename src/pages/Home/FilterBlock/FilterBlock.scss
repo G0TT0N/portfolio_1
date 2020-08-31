@@ -1,3 +1,8 @@
+.filterBlock_desctop {
+  width: 256px;
+  padding: 24px;
+}
+
 .filterBlock__drawer {
   .ant-drawer-content-wrapper {
     border-left: 1px solid hsla(0, 0%, 0%, 0.1);
@@ -118,5 +123,43 @@
   .filterBlock__item__price-input.ant-input-number-focused {
     border-color: black;
     box-shadow: 0 0 2px hsla(0, 0%, 0%, 0.65);
+  }
+}
+
+.filterBlock__controls {
+  border: 1px solid hsla(0, 0%, 0%, 0.1);
+  border-radius: 5px;
+  padding: 15px 25px;
+  margin-top: 20px;
+  display: none;
+  width: max-content;
+  box-shadow: 0px 1px 2px hsla(0, 0%, 0%, 0.2);
+
+  button {
+    &:last-child {
+      margin-left: 10px;
+    }
+
+    &:hover,
+    &:focus {
+      color: hsla(0, 0%, 0%, 0.65);
+      border-color: hsla(0, 0%, 0%, 0.65);
+    }
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .filterBlock__controls {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .filterBlock__drawer {
+    width: 100% !important;
+  }
+
+  .filterBlock__item__price-fields {
+    max-width: 200px;
   }
 }
